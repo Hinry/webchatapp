@@ -39,9 +39,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
     private List<GrantedAuthority> getGrantedAuthorities(User user){
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
-        UserRole userRole = user.getRoles();
-
-        authorities.add(new SimpleGrantedAuthority("ROLE_"+userRole.getRoles()));
+        for(UserRole userProfile : user.getUserRoles()){
+            authorities.add(new SimpleGrantedAuthority("ROLE_"+userProfile.getType()));
+        }
 
         return authorities;
     }

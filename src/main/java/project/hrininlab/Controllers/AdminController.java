@@ -87,11 +87,8 @@ public class AdminController {
     }
 
     @ModelAttribute("roles")
-    public List<String> initializeProfiles() {
-        List<String> list = new ArrayList<String>();
-        list.add("ADMIN");
-        list.add("USER");
-        return list;
+    public List<UserRole> initializeProfiles() {
+        return userService.findAll();
     }
 
     private List<User> getList() {

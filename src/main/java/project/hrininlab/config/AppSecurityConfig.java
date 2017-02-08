@@ -50,8 +50,6 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 // указываем action с формы логина
                 .loginProcessingUrl("/login")
-                // указываем URL при неудачном логине
-                .failureUrl("/login?error")
                 // Указываем параметры логина и пароля с формы логина
                 .usernameParameter("j_username")
                 .passwordParameter("j_password").defaultSuccessUrl("/")
@@ -62,8 +60,6 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 // указываем URL логаута
                 .logoutUrl("/logout")
-                // указываем URL при удачном логауте
-                .logoutSuccessUrl("/login?logout")
                 // делаем не валидной текущую сессию
                 .invalidateHttpSession(true);
 

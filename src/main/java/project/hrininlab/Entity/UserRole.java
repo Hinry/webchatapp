@@ -1,7 +1,5 @@
 package project.hrininlab.Entity;
 
-import com.sun.javafx.beans.IDProperty;
-
 import javax.persistence.*;
 
 /**
@@ -13,54 +11,53 @@ public class UserRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "role_id")
-    private int role_id;
+    @Column(name = "id")
+    private int id;
 
-    @OneToOne
-    @JoinColumn(name = "user_owner")
-    private User user;
-
-    @Column(name = "roles")
-    private String roles;
+    @Column(name="TYPE", length=15, unique=true, nullable=false)
+    private String type = UserRoleType.USER.getUserProfileType();
 
     public UserRole() {
     }
 
-    public UserRole(User user, String roles) {
-        this.user = user;
-        this.roles = roles;
+    public int getId() {
+        return id;
     }
 
-    public int getRole_id() {
-        return role_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setRole_id(int role_id) {
-        this.role_id = role_id;
+    public String getType() {
+        return type;
     }
 
-    public User getUser() {
-        return user;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserRole)) return false;
+
+        UserRole userRole = (UserRole) o;
+
+        if (getId() != userRole.getId()) return false;
+        return getType() != null ? getType().equals(userRole.getType()) : userRole.getType() == null;
     }
 
-    public String getRoles() {
-        return roles;
-    }
-
-    public void setRoles(String roles) {
-        this.roles = roles;
+    @Override
+    public int hashCode() {
+        int result = getId();
+        result = 31 * result + (getType() != null ? getType().hashCode() : 0);
+        return result;
     }
 
     @Override
     public String toString() {
         return "UserRole{" +
-                "role_id=" + role_id +
-                ", user=" + user +
-                ", roles='" + roles + '\'' +
+                "type='" + type + '\'' +
                 '}';
     }
 }

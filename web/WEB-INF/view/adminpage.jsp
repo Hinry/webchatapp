@@ -33,7 +33,7 @@
                     <td>${listValue.login}</td>
                     <td>${listValue.first_name}</td>
                     <td>${listValue.last_name}</td>
-                    <td>${listValue.roles.roles}</td>
+                    <td>${listValue.rol}</td>
                 </tr>
             </c:forEach>
         </table>

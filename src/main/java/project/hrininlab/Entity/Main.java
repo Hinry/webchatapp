@@ -2,6 +2,8 @@ package project.hrininlab.Entity;
 
 import project.hrininlab.DAO.UserDao;
 
+import javax.sound.midi.Soundbank;
+
 /**
  * Created by mrhri on 29.01.2017.
  */
@@ -9,14 +11,9 @@ public class Main {
 
     public static void main (String[] args){
         UserDao dao = new UserDao();
-        User user2 = new User("login3","name","lastname","password",true);
+        User user2 = dao.get_user_by_login("as");
+        System.out.println(user2.getRol().toString());
 
-        UserRole role = new UserRole();
-        role.setRoles("USER");
-
-        user2.setRoles(role);
-
-        dao.add_User(user2);
 
     }
 

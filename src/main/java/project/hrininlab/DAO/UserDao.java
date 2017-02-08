@@ -1,12 +1,15 @@
 package project.hrininlab.DAO;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import project.hrininlab.Entity.ContactList;
 import project.hrininlab.Entity.User;
+import project.hrininlab.Entity.UserRole;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +40,23 @@ public class UserDao {
             session.flush();
             session.close();
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<UserRole> findAll(){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        Criteria crit = session.createCriteria(UserRole.class);
+        crit.addOrder(Order.asc("type"));
+        return (List<UserRole>)crit.list();
+    }
+
+    @SuppressWarnings("unchecked")
+    public UserRole findById(int id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        UserRole role =  (UserRole) session.load(UserRole.class, id);
+
+        return role;
     }
 
     public void delete_User(int user_id) {
@@ -77,7 +97,7 @@ public class UserDao {
         }
     }
 
-    public void add_contact_to_User(int user_id, User contact){
+    public void add_contact_to_User(int user_id, int contact_id){
 
         Transaction transaction = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -85,10 +105,11 @@ public class UserDao {
             transaction = session.beginTransaction();
             //ВЫТЯГИВАЕМ ЮЗЕРА
             User user = (User) session.load(User.class, user_id);
-            session.save(contact);
-            ContactList contactList = new ContactList();
-            contactList.setUser_id(contact);
-            user.getContactList().add(contactList);
+            User contact = (User) session.load(User.class, contact_id);
+            ContactList list = new ContactList();
+            list.setUser_id(contact);
+
+            user.getContactList().add(list);
             session.update(user);
             session.beginTransaction().commit();
         }catch (RuntimeException ex){

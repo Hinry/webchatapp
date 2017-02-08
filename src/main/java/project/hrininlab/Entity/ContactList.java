@@ -55,7 +55,6 @@ public class ContactList {
 
     public void setUser_id(User user_id) {
         this.user_id = user_id;
-        this.allias = user_id.getLogin();
     }
 
     public String getAllias() {
@@ -67,11 +66,35 @@ public class ContactList {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ContactList)) return false;
+
+        ContactList that = (ContactList) o;
+
+        if (getList_id() != that.getList_id()) return false;
+        if (getOwner_id() != null ? !getOwner_id().equals(that.getOwner_id()) : that.getOwner_id() != null)
+            return false;
+        if (getUser_id() != null ? !getUser_id().equals(that.getUser_id()) : that.getUser_id() != null) return false;
+        return getAllias() != null ? getAllias().equals(that.getAllias()) : that.getAllias() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getList_id();
+        result = 31 * result + (getOwner_id() != null ? getOwner_id().hashCode() : 0);
+        result = 31 * result + (getUser_id() != null ? getUser_id().hashCode() : 0);
+        result = 31 * result + (getAllias() != null ? getAllias().hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "ContactList{" +
                 "list_id=" + list_id +
                 ", owner_id=" + owner_id +
                 ", user_id=" + user_id +
+                ", allias='" + allias + '\'' +
                 '}';
     }
 }
