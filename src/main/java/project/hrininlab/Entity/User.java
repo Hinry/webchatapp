@@ -1,10 +1,7 @@
 package project.hrininlab.Entity;
 
-import com.sun.tracing.dtrace.Attributes;
 import org.hibernate.annotations.IndexColumn;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -22,15 +19,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @NotEmpty
     @Column(name = "login", unique = true)
     private String login;
 
+    @NotEmpty
     @Column(name = "first_name")
     private String first_name;
 
+    @NotEmpty
     @Column(name = "last_name")
     private String last_name;
 
+    @NotEmpty
     @Column(name = "password")
     private String password;
 

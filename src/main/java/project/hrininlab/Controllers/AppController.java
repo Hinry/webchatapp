@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class AppController {
 
-    @RequestMapping(value = {"/", "/helloworld**"}, method = {RequestMethod.GET})
+    @RequestMapping(value = "/", method = {RequestMethod.GET})
     public ModelAndView welcomePage() {
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Spring Security Tutorial");

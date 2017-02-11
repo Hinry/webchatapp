@@ -2,21 +2,22 @@ package project.hrininlab.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import project.hrininlab.DAO.UserDao;
 import project.hrininlab.Entity.User;
 import project.hrininlab.Entity.UserRole;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,8 +73,8 @@ public class AdminController {
          * framework as well while still using internationalized messages.
          *
          */
-        if(!userService.isUserUnique(user.getId(), user.getLogin())){
-            FieldError ssoError =new FieldError("user","ssoId", messageSource.getMessage("non.unique.ssoId", new String[]{user.getLogin()}, Locale.getDefault()));
+        if(!userService.isUserUnique(user.getLogin())){
+            FieldError ssoError =new FieldError("user","login", messageSource.getMessage("non.unique.login", new String[]{user.getLogin()}, Locale.getDefault()));
             result.addError(ssoError);
             return "registration";
         }
@@ -84,6 +85,67 @@ public class AdminController {
         model.addAttribute("loggedinuser", getPrincipal());
         //return "success";
         return "registrationsuccess";
+    }
+
+    /**
+     * This method will provide the medium to update an existing user.
+     */
+    @RequestMapping(value = { "/edit-user-{id}" }, method = RequestMethod.GET)
+    public String editUser(@PathVariable int id, ModelMap model) {
+        User user = userService.get_user_by_id(id);
+        model.addAttribute("user", user);
+        model.addAttribute("edit", true);
+        model.addAttribute("loggedinuser", getPrincipal());
+        return "registration";
+    }
+
+
+
+    @RequestMapping(value = { "/edit-user-{id}" }, method = RequestMethod.POST)
+    public String updateUser(@Valid User user, BindingResult result,
+                             ModelMap model, @PathVariable String id) {
+
+        if (result.hasErrors()) {
+            return "registration";
+        }
+
+        /*//Uncomment below 'if block' if you WANT TO ALLOW UPDATING SSO_ID in UI which is a unique key to a User.
+        if(!userService.isUserSSOUnique(user.getId(), user.getSsoId())){
+            FieldError ssoError =new FieldError("user","ssoId",messageSource.getMessage("non.unique.ssoId", new String[]{user.getSsoId()}, Locale.getDefault()));
+            result.addError(ssoError);
+            return "registration";
+        }*/
+
+
+        userService.update_User(user);
+
+        model.addAttribute("success", "User " + user.getFirst_name() + " "+ user.getLast_name() + " updated successfully");
+        model.addAttribute("loggedinuser", getPrincipal());
+        return "registrationsuccess";
+    }
+
+    /**
+     * Этот метод удаляет пользователя по id.
+     */
+    @RequestMapping(value = { "/delete-user-{id}" }, method = RequestMethod.GET)
+    public String deleteUser(@PathVariable int id) {
+        userService.delete_User(id);
+        return "redirect:/adminpage";
+    }
+
+    /**
+     * This method handles logout requests.
+     * Toggle the handlers if you are RememberMe functionality is useless in your app.
+     */
+    @RequestMapping(value="/logout", method = RequestMethod.GET)
+    public String logoutPage (HttpServletRequest request, HttpServletResponse response){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+
+            SecurityContextHolder.getContext().setAuthentication(null);
+        }
+        return "redirect:/login?logout";
     }
 
     @ModelAttribute("roles")

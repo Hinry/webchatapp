@@ -41,7 +41,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/adminpage/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/adminpage/**","/newuser/**", "/delete-user-*","/edit-user-*").access("hasRole('ADMIN')")
                 .and();
 
 
@@ -52,17 +52,9 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login")
                 // Указываем параметры логина и пароля с формы логина
                 .usernameParameter("j_username")
-                .passwordParameter("j_password").defaultSuccessUrl("/")
+                .passwordParameter("j_password").defaultSuccessUrl("/login")
                 // даем доступ к форме логина всем
                 .permitAll();
-        http.logout()
-                // разрешаем делать логаут всем
-                .permitAll()
-                // указываем URL логаута
-                .logoutUrl("/logout")
-                // делаем не валидной текущую сессию
-                .invalidateHttpSession(true);
-
     }
 
     @Bean

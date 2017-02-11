@@ -12,20 +12,21 @@
   <head>
     <title>$Title$</title>
     <link href="<c:url value="resources/css/style.css" />" rel="stylesheet">
+      <link href="<c:url value="resources/css/bootstrap.min.css" />" rel="stylesheet">
     <link rel="stylesheet" href="<c:url value="resources/css/font-awesome/css/font-awesome.min.css"/>">
   </head>
   <body>
 
   <div class="header">
        <div class="logo"></div>
+
       <sec:authorize access="isAuthenticated()">
-      <c:if test="${pageContext.request.userPrincipal.name != null}">
-          <span class="welcome-chat" style="float: right">Welcome : ${pageContext.request.userPrincipal.name} <a href="/adminpage">админка</a> </span>
-          <c:url value="login?logout" var="logoutUrl" />
-          <a class="btn_enter" href="${logoutUrl}">Выход</a>
+          <c:if test="${pageContext.request.userPrincipal.name != null}">
+              <span class="welcome-chat" style="float: right">Welcome : ${pageContext.request.userPrincipal.name} <a href="/adminpage">админка</a> </span>
+              <c:url value="login?logout" var="logoutUrl" />
+              <a class="btn_enter" href="${logoutUrl}">Выход</a>
           </c:if>
       </sec:authorize>
-
       <sec:authorize access="!isAuthenticated()">
        <a class="btn_enter" href="/login">Вход</a>
        <a class="btn_reg" href="/registration"><i class="fa fa-info" aria-hidden="true">

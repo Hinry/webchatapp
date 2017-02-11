@@ -85,7 +85,7 @@
         </div>
 
         <div class="row">
-            <div class="form-actions floatRight">
+            <div class="form-actions">
                 <c:choose>
                     <c:when test="${edit}">
                         <input type="submit" value="Update" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/adminpage' />">Отмена</a>

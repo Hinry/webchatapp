@@ -178,8 +178,8 @@ public class UserDao {
         return users;
     }
 
-    public boolean isUserUnique(Integer id, String login) {
+    public boolean isUserUnique(String login) {
         User user = get_user_by_login(login);
-        return ( user == null || ((id != null) && (user.getId() == id)));
+        return (user == null);
     }
 }
