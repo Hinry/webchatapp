@@ -1,9 +1,31 @@
 body{
     padding: 0;
     margin: 0;
-    background-color: #323232!important;
 }
-
+#list {
+    background: rgba(23,23,23,0.78);
+    padding: 10px 10px 10px 10px;
+    color: white;
+}
+.table thead tr{
+    background: #2d2d2d;
+    color: white;
+}
+.table {
+    background: rgba(23,23,23,0.78);
+    color: whitesmoke;
+}
+.table .tbody:hover {
+    background: #3d3d3d;
+    color: white;
+}
+.cont {
+    width: 100%;
+    height: 683px;
+    background: url("../images/conta.jpg") no-repeat center;
+    background-size: cover;
+    box-sizing: border-box;
+}
 .header {
     display: block;
     box-sizing: border-box;
@@ -12,21 +34,34 @@ body{
     padding: 5px;
     border-bottom: 1px solid white;
     vertical-align: middle;
+    background-color: rgba(23, 23, 23, 0.71);
 }
 .logo {
     display: inline-block;
     width: 150px;
     height: 35px;
-    background-image: url("../images/CHATAPP.png");
-    background-repeat: no-repeat;
+    background: url("../images/CHATAPP.png") no-repeat center;
     background-size: contain;
-    background-position: center;
 }
 .btn_wrap {
     display: block;
     width: 60%;
     margin: 0 auto;
     padding: 20px 20px 20px 20px;
+}
+.btn_new_user {
+    color: whitesmoke;
+    border: 1px solid #FF6627;
+    background-color: rgba(23, 23, 23, 0.4);
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s;
+    box-sizing: border-box;
+    padding: 10px 5px 10px 5px;
+}
+.btn_new_user:hover {
+    text-decoration: none;
+    color: white;
 }
 .btn_reg{
     display: inline-block;
@@ -43,67 +78,113 @@ body{
 .btn_reg:hover {
     color: white;
 }
+.btn-link-upload {
+    display: inline-block;
+    width: 270px;
+    padding: 5px 5px 10px 5px;
+    color: whitesmoke;
+    border: 1px solid #FF6627;
+    background-color: rgba(23, 23, 23, 0.4);
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s;
+    border-left-width: 10px;
+    border-right-width: 10px;
+    box-sizing: border-box;
+
+}
+.btn-link-upload:hover {
+    background-color: rgba(255, 102, 39, 0.33);
+    text-decoration: none;
+    color: whitesmoke;
+    border-left-width: 1px;
+    border-right-width: 1px;
+}
 .btn_enter{
     display: inline-block;
     width: 105px;
     margin-left: 5px;
     padding: 10px 5px 10px 5px;
+    color: #ff6627;
+    border: 1px solid #FF6627;
     text-decoration: none;
     text-align: center;
-    border: 1px solid rgba(89, 255, 139, 0.5);
-    background-color: rgba(89, 255, 139, 0.2);
     float: right;
     transition: all 0.3s;
 }
-.btn_enter2{
-    display: inline-block;
+.btn_login{
     width: 105px;
-    margin-left: 5px;
-    margin-right: 50px;
+    margin-top: 20px;
+    border: 1px solid #FF6627;
+    background-color: rgba(50,50,50,0.6);
     padding: 10px 5px 10px 5px;
+    color: white;
     text-decoration: none;
     text-align: center;
-    border: 1px solid rgba(89, 255, 139, 0.5);
-    background-color: rgba(89, 255, 139, 0.2);
+    transition: all 0.3s;
+}
+.login {
+    display: inline-block;
+    width: auto;
+    margin-left: 5px;
+    padding: 10px 5px 10px 5px;
+    color: white;
+    text-decoration: none;
+    text-align: center;
     float: right;
     transition: all 0.3s;
 }
 .btn_enter:hover {
-    border: 1px solid rgba(89, 255, 139, 1);
+    color: #ff6627;
+    background-color: rgba(255, 102, 39, 0.30);
+    text-decoration: none;
+}
+.main-page {
+    width: 100%;
+    height: 630px;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0.55+0,0+100;Neutral+Density */
+    background: -moz-linear-gradient(top,  rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(0,0,0,0.55) 0%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(0,0,0,0.55) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8c000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+
+    font-family: "Yu Gothic UI Light", serif;
+    box-sizing: border-box;
+    padding-top: 50px;
 }
 .welcome {
     display: block;
+    padding-top: 50px;
     width: 80%;
     margin: 0 auto;
     height: 320px;
     color: rgb(255, 255, 255);
     text-align: center;
-    font-family: "Yu Gothic UI Light", serif;
-    font-size: 40px;
     transition: all 0.3s;
 }
-.welcome-chat {
-    font-size: 30px;
-    color: #ff5b2b;
-    font-family: "Trebuchet MS", serif;
+.welcome h3{
+    font-family: "Yu Gothic UI Light", serif;
+    margin-top: 50px;
 }
-.welcome-friends {
-    font-size: 30px;
-    color: #ff5b2b;
-    font-weight: bold;
-}
+
 .forma_reg {
     display: block;
-    height: 200px;
-    width: 25%;
+    height: auto;
+    width: 400px;
     margin:  50px auto;
-    padding: 50px 0 50px 0;
-    border: 2px solid rgba(255,100,255,1);
-    border-radius: 5px;
+    padding: 30px 0 50px 0;
+    border: 2px solid rgb(255, 102, 39);
     text-align: center;
     color: white;
     font-family: "Yu Gothic UI Light", serif;
-    background-color: rgba(255,100,255,0.1);
+    background-color: rgba(50, 50, 50, 0.5);
+}
+
+.error-login {
+    text-align: center;
+    width: 100%;
+    background-color: rgba(50,50,50,0.6);
+    color: #ff4a2d;
 }
 
 li {
@@ -111,19 +192,25 @@ li {
     margin-bottom: 30px;
 }
 .in {
-    background-color: white;
+    background-color: rgba(50, 50, 50, 0.6);
     border-radius: 5px;
+    color: white;
     border-width: 0px;
     height: 25px;
-    padding-left: 5px;
-    margin-left: 20px;
-    float: right;
-    margin-right: 50px;
+    margin-top: 10px;
+    padding-left: 10px;
 }
 .in:focus {
     outline: none;
 }
-.error {
-    color: indianred;
 
+.has-error {
+    color: indianred;;
+}
+.control-lable {
+
+}
+
+.form-actions {
+    padding-left: 15px;
 }

@@ -15,10 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
 import project.hrininlab.DAO.UserDao;
 import project.hrininlab.Entity.User;
 import project.hrininlab.Entity.UserRole;
+import sun.misc.Request;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -50,7 +52,8 @@ public class AdminController {
     }
 
     @RequestMapping(value = { "/newuser" }, method = RequestMethod.GET)
-    public String newUser(ModelMap model) {
+    public String newUser(ModelMap model) throws UnsupportedEncodingException {
+
         User user = new User();
         model.addAttribute("user", user);
         model.addAttribute("edit", false);
@@ -59,7 +62,8 @@ public class AdminController {
 
     @RequestMapping(value = { "/newuser" }, method = RequestMethod.POST)
     public String saveUser(@Valid User user, BindingResult result,
-                           ModelMap model) {
+                           ModelMap model) throws UnsupportedEncodingException {
+
 
         if (result.hasErrors()) {
             return "registration";
@@ -81,7 +85,7 @@ public class AdminController {
 
         userService.add_User(user);
 
-        model.addAttribute("success", "User " + user.getFirst_name() + " "+ user.getLast_name() + " registered successfully");
+        model.addAttribute("success", "Пользователь " + user.getFirst_name() + " "+ user.getLast_name() + " успешно зарегестрирован.");
         model.addAttribute("loggedinuser", getPrincipal());
         //return "success";
         return "registrationsuccess";
@@ -91,7 +95,10 @@ public class AdminController {
      * This method will provide the medium to update an existing user.
      */
     @RequestMapping(value = { "/edit-user-{id}" }, method = RequestMethod.GET)
-    public String editUser(@PathVariable int id, ModelMap model) {
+    public String editUser(@PathVariable int id, ModelMap model, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         User user = userService.get_user_by_id(id);
         model.addAttribute("user", user);
         model.addAttribute("edit", true);
@@ -103,8 +110,10 @@ public class AdminController {
 
     @RequestMapping(value = { "/edit-user-{id}" }, method = RequestMethod.POST)
     public String updateUser(@Valid User user, BindingResult result,
-                             ModelMap model, @PathVariable String id) {
+                             ModelMap model, @PathVariable String id,HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         if (result.hasErrors()) {
             return "registration";
         }
@@ -119,7 +128,7 @@ public class AdminController {
 
         userService.update_User(user);
 
-        model.addAttribute("success", "User " + user.getFirst_name() + " "+ user.getLast_name() + " updated successfully");
+        model.addAttribute("success", "Пользователь " + user.getFirst_name() + " "+ user.getLast_name() + " успешно отредактирован.");
         model.addAttribute("loggedinuser", getPrincipal());
         return "registrationsuccess";
     }

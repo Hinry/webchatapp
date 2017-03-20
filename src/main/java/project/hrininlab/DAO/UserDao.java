@@ -5,7 +5,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import project.hrininlab.Entity.ContactList;
 import project.hrininlab.Entity.User;

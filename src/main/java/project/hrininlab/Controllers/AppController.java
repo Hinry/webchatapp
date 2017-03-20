@@ -21,6 +21,7 @@ public class AppController {
     }
 
 
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView loginPage() {
 

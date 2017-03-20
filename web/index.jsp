@@ -17,30 +17,37 @@
   </head>
   <body>
 
-  <div class="header">
-       <div class="logo"></div>
+  <div class="cont">
+      <div class="header">
+          <a href="/"> <div class="logo"></div></a>
 
-      <sec:authorize access="isAuthenticated()">
-          <c:if test="${pageContext.request.userPrincipal.name != null}">
-              <span class="welcome-chat" style="float: right">Welcome : ${pageContext.request.userPrincipal.name} <a href="/adminpage">админка</a> </span>
-              <c:url value="login?logout" var="logoutUrl" />
-              <a class="btn_enter" href="${logoutUrl}">Выход</a>
-          </c:if>
-      </sec:authorize>
-      <sec:authorize access="!isAuthenticated()">
-       <a class="btn_enter" href="/login">Вход</a>
-       <a class="btn_reg" href="/registration"><i class="fa fa-info" aria-hidden="true">
-          </i> Информация для регистрации пользователя</a>
-      </sec:authorize>
-  </div>
-  <div class="welcome">
-        <div><p>Добро пожаловать на сайт</p></div>
-        <img src="resources/images/CHATAPP.png">
-        <div class="welcome-chat"><p>чат с моментальным переводом текста!</p></div>
-        <div class="welcome-friends"><p>лучшее решение для тех кто имеет иностранных друзей</p></div>
-  </div>
-  <div class="btn_wrap">
+          <sec:authorize access="isAuthenticated()">
+              <c:if test="${pageContext.request.userPrincipal.name != null}">
+                  <a class="btn_enter" href="/adminpage">админка</a> </span>
+                  <c:url value="login?logout" var="logoutUrl" />
+                  <a class="btn_enter" href="${logoutUrl}">Выход</a>
+                  <span class="login">Вы вошли как ${pageContext.request.userPrincipal.name}</span>
+              </c:if>
+          </sec:authorize>
+          <sec:authorize access="!isAuthenticated()">
+           <a class="btn_enter" href="/login">Вход</a>
+           <a class="btn_reg" href="/registration"><i class="fa fa-info" aria-hidden="true">
+              </i> Информация для регистрации пользователя</a>
+          </sec:authorize>
+      </div>
 
+      <div class="main-page">
+          <div class="welcome">
+              <img src="resources/images/CHATAPP.png">
+              <h3>Хочешь завести иностранных друзей?</h3>
+              <h3>У тебя уже есть друзья из другой страны но не знаешь как с ними пообщаться?</h3>
+              <h3>Зарегистрируйся и общайся со своими друзьями из других стран с помощью удобного мессенджера</h3>
+              <h3><a class="btn-link-upload" href="/">Ссылка на скачивание</a></h3>
+          </div>
+          <div class="btn_wrap">
+
+          </div>
+      </div>
   </div>
 
   </body>

@@ -5,7 +5,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,7 +13,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-import project.hrininlab.DAO.UserDao;
 import project.hrininlab.service.UserDetailServiceImpl;
 
 /**
@@ -29,6 +27,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Autowired
     ConvertUserRole converter;
+
 
     @Bean
     public InternalResourceViewResolver viewResolver() {
@@ -50,15 +49,19 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addConverter(converter);
     }
 
+
     @Bean
-    public UserDetailsService getUserDetailsService(){
+    public UserDetailsService getUserDetailsService() {
         return new UserDetailServiceImpl();
     }
 
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setDefaultEncoding("UTF-8");
         messageSource.setBasename("messages");
         return messageSource;
     }
+
 }
+
